@@ -1,0 +1,7 @@
+## Interface: 112100
+## Title : ShamanFix
+## Notes: This AddOn makes the default Shaman colour blue, as it should be. W
+## Author: Apocalypsa
+## Version: 1.0
+ShamanFix.lua
+ShamanFix.xml
