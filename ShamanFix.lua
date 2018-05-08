@@ -1,9 +1,7 @@
 local _G = getfenv(0) -- this should improve lookup speed
 
 -- Fix shaman colors.
-_G.RAID_CLASS_COLORS["SHAMAN"].r = 0.0;
-_G.RAID_CLASS_COLORS["SHAMAN"].g = 0.44;
-_G.RAID_CLASS_COLORS["SHAMAN"].b = 0.87;
+_G.RAID_CLASS_COLORS["SHAMAN"] = { r = 0, g = 0.44, b = 0.87}
 
 -- Reapply the fix 1 sec after loading.
 -- TODO make this less hacky.
@@ -17,17 +15,16 @@ for k,v in _G.RAID_CLASS_COLORS do
 end
 
 -- Just to be sure.
-ClassColorsHex["SHAMAN"] = string.format("%2x%2x%2x", 0*255, 0.44*255, 0.87*255);
+ClassColorsHex["SHAMAN"] = "0070de";
 
 function ShamanFix_FixShamanColor()
-	_G.RAID_CLASS_COLORS["SHAMAN"].r = 0.0;
-	_G.RAID_CLASS_COLORS["SHAMAN"].g = 0.44;
-	_G.RAID_CLASS_COLORS["SHAMAN"].b = 0.87;
+	_G.RAID_CLASS_COLORS["SHAMAN"] = { r = 0, g = 0.44, b = 0.87}
 		
-	-- Hack for WIM
-	_G.WIM_ClassColors[WIM_LOCALIZED_SHAMAN] = "0070DE";
+	-- Hack for WIM.
+	_G.WIM_ClassColors[WIM_LOCALIZED_SHAMAN] = "0070de";
 	
-	-- Hack for TinyTip
+	-- Hack for TinyTip.
+	-- Tinytip doesn't expose its hex color table so instead we override its ColorPlayer function.
 	TinyTip_ColorPlayer = ShamanFix_ColorPlayer;
 end
 
@@ -49,6 +46,7 @@ f:SetScript("OnEvent", function()
    end     
 end)
 
+-- Tinytip replacement function.
 function ShamanFix_ColorPlayer(unit)
 	_,tmp=_G.UnitClass(unit)
 	if tmp and ClassColorsHex[tmp] then
