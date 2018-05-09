@@ -21,7 +21,7 @@ function ShamanFix_FixShamanColor()
 	_G.RAID_CLASS_COLORS["SHAMAN"] = { r = 0, g = 0.44, b = 0.87}
 		
 	-- Hack for WIM.
-	if _G.WIM_ClassColors then
+	if _G["WIM_ClassColors"] then
 		_G.WIM_ClassColors[WIM_LOCALIZED_SHAMAN] = "0070de";
 	end
 
@@ -30,7 +30,7 @@ function ShamanFix_FixShamanColor()
 	TinyTip_ColorPlayer = ShamanFix_ColorPlayer;
 
 	-- Hack for Grid
-	if (GridStatusName:Reset) then
+	if _G["GridStatusName"] then
 		GridStatusName:Reset();
 	end
 end
